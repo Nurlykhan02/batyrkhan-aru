@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ару · Беташар</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: Asylbek;
+      src: url("./asylbek.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --kz-bg: #F2F8F3;
+      --kz-ink: #101E14;
+      --kz-accent: #2A5C35;
+      --kz-soft: color-mix(in srgb, #101E14 78%, #F2F8F3);
+      --kz-meta: color-mix(in srgb, #101E14 52%, #F2F8F3);
+      --font-body: "Comfortaa", system-ui, sans-serif;
+      --font-display: "Asylbek", "Noto Serif", Georgia, serif;
+      --font-script: "Great Vibes", cursive;
+      --max: 28rem;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: #0b120e;
+      color: var(--kz-ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      min-height: 100dvh;
+    }
+
+    .phone {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      background: var(--kz-bg);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      position: relative;
+      box-shadow: 0 0 80px rgba(0,0,0,.35);
+    }
+
+    /* ========== COVER ========== */
+    .cover {
+      position: relative;
+      height: 100dvh;
+      min-height: 560px;
+      overflow: hidden;
+      background: #1a0a0a;
+    }
+    .cover__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+    }
+    .cover__fade {
+      position: absolute;
+      inset: auto 0 0;
+      height: 28%;
+      background: linear-gradient(to top, var(--kz-bg), transparent);
+      pointer-events: none;
+    }
+    .cover__music-wrap {
+      position: absolute;
+      right: 1.75rem;
+      bottom: 8rem;
+      width: 8rem;
+      height: 8rem;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+    }
+    .cover__music-spin {
+      position: absolute;
+      inset: 0;
+      width: 8rem;
+      height: 8rem;
+      animation: spin-ornament 7s linear infinite;
+      pointer-events: none;
+      opacity: 1;
+    }
+    .cover__music-spin img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    @keyframes spin-ornament {
+      to { transform: rotate(360deg); }
+    }
+    .cover__music {
+      position: relative;
+      z-index: 1;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      border: none;
+      background: #2A5C35;
+      color: #f5edd9;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: opacity .2s ease;
+    }
+    .cover__music:hover { opacity: .9; }
+    .cover__music svg { width: 2.75rem; height: 2.75rem; }
+    .cover__music .ico-play { margin-left: .2rem; }
+    .cover__music.is-playing .ico-play { display: none; }
+    .cover__music:not(.is-playing) .ico-pause { display: none; }
+
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 1.35rem;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--kz-accent);
+      opacity: .65;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .greeting {
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--kz-meta);
+      line-height: 1.55;
+      max-width: 22rem;
+      margin: 0 auto;
+    }
+    .intro {
+      margin-top: 1.1rem;
+      font-size: 1rem;
+      letter-spacing: .02em;
+      color: var(--kz-soft);
+      line-height: 1.65;
+      max-width: 22rem;
+      margin-inline: auto;
+    }
+    .hero-name {
+      margin-top: 1.75rem;
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 16vw, 3.75rem);
+      font-weight: 400;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      color: var(--kz-accent);
+    }
+    .message {
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+      color: var(--kz-soft);
+      line-height: 1.6;
+      max-width: 20rem;
+      margin-inline: auto;
+    }
+    .ornament {
+      display: block;
+      margin: 1.75rem auto 0;
+      width: min(72%, 14rem);
+      opacity: .55;
+    }
+    .ornament img { width: 100%; height: auto; display: block; }
+    .border-ornament {
+      width: min(88%, 20rem);
+      margin: 0 auto 1.5rem;
+      opacity: .45;
+    }
+    .border-ornament img { width: 100%; height: auto; display: block; }
+
+    /* ========== CALENDAR ========== */
+    .calendar { padding: 2rem 1.25rem 1.5rem; text-align: center; }
+    .cal-month {
+      font-size: 2.75rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      color: var(--kz-ink);
+      line-height: 1;
+    }
+    .cal-date {
+      margin-top: .35rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--kz-accent);
+    }
+    .cal-grid {
+      margin: 1.25rem auto 0;
+      width: min(100%, 18rem);
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: .35rem .15rem;
+    }
+    .cal-dow {
+      font-size: .7rem;
+      font-weight: 800;
+      color: var(--kz-accent);
+      text-transform: lowercase;
+      padding-bottom: .35rem;
+    }
+    .cal-day {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--kz-ink);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+    }
+    .cal-day--muted { opacity: .28; font-weight: 500; }
+    .cal-day--event {
+      background: var(--kz-accent);
+      color: #fff;
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--kz-accent) 40%, transparent);
+    }
+    .time-block { margin-top: 1.75rem; }
+    .time-label {
+      font-size: 2.1rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      color: var(--kz-ink);
+    }
+    .time-value {
+      margin-top: .15rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--kz-accent);
+      letter-spacing: .08em;
+    }
+    .schedule {
+      margin: 1.25rem auto 0;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .1rem;
+    }
+    .schedule__name {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--kz-ink);
+    }
+    .schedule__time {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--kz-accent);
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      margin: 2rem auto 0;
+      max-width: 22rem;
+    }
+    .cd-unit { flex: 1; text-align: center; padding: .5rem .25rem; }
+    .cd-num {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--kz-ink);
+      line-height: 1;
+    }
+    .cd-label {
+      margin-top: .35rem;
+      font-size: .875rem;
+      text-transform: lowercase;
+      color: var(--kz-ink);
+    }
+    .cd-sep {
+      width: 1px;
+      background: color-mix(in srgb, var(--kz-ink) 18%, transparent);
+      align-self: stretch;
+      margin: .4rem 0;
+    }
+
+    /* ========== LOCATION ========== */
+    .location { padding: 2.5rem 1.5rem 1.5rem; text-align: center; }
+    .loc-label { font-size: 1.15rem; color: var(--kz-ink); }
+    .loc-address {
+      margin-top: .35rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--kz-ink);
+      white-space: pre-line;
+    }
+    .map-btn {
+      margin-top: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: var(--kz-accent);
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      font: inherit;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: .85rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 8px 22px color-mix(in srgb, var(--kz-accent) 35%, transparent);
+      cursor: pointer;
+    }
+    .map-btn svg { width: 1.15rem; height: 1.15rem; }
+    .map-frame {
+      margin: 1.5rem auto 0;
+      width: min(100%, 22rem);
+      aspect-ratio: 16 / 11;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--kz-accent) 20%, transparent);
+      box-shadow: 0 12px 40px color-mix(in srgb, var(--kz-ink) 8%, transparent);
+    }
+    .map-frame iframe { width: 100%; height: 100%; border: 0; }
+
+    /* ========== HOSTS ========== */
+    .hosts {
+      padding: 3rem 1.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hosts__bg {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      width: min(92%, 20rem);
+      opacity: .22;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hosts__bg img { width: 100%; height: auto; display: block; }
+    .hosts__inner { position: relative; z-index: 1; }
+    .hosts__label {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--kz-ink);
+      opacity: .85;
+    }
+    .hosts__names {
+      margin-top: .65rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .15rem;
+    }
+    .hosts__name {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 11vw, 3rem);
+      font-weight: 400;
+      color: var(--kz-accent);
+      line-height: 1.15;
+    }
+    .hosts__divider {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      width: min(100%, 10rem);
+      margin: .2rem auto;
+      color: var(--kz-accent);
+    }
+    .hosts__divider span {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, currentColor 42%, transparent) 35%, color-mix(in srgb, currentColor 42%, transparent) 65%, transparent);
+    }
+    .hosts__divider img {
+      width: 1.25rem;
+      height: 1.25rem;
+      filter: invert(28%) sepia(24%) saturate(900%) hue-rotate(85deg) brightness(90%);
+    }
+
+    /* ========== RSVP ========== */
+    .rsvp { padding: 2rem 1.5rem 3rem; text-align: center; }
+    .rsvp h3 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: lowercase;
+      color: var(--kz-ink);
+      margin-bottom: 1.5rem;
+    }
+    .field { text-align: left; margin-bottom: 1rem; }
+    .field label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: lowercase;
+      color: #3a3a3a;
+      margin-bottom: .4rem;
+    }
+    .field label .req { color: #e11d48; }
+    .field input {
+      width: 100%;
+      font: inherit;
+      font-size: 1rem;
+      padding: .5rem .75rem;
+      border: 0;
+      border-radius: .4rem;
+      background: #fff;
+      color: var(--kz-ink);
+      outline: none;
+      box-shadow: inset 0 0 0 1px #dedede;
+      transition: box-shadow .15s ease;
+    }
+    .field input:focus {
+      box-shadow: inset 0 0 0 2px var(--kz-ink);
+    }
+    .guest-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .75rem;
+      margin-top: .75rem;
+    }
+    .guest-row input[type="number"] {
+      width: 5rem;
+      text-align: center;
+      font-size: 1.25rem;
+      padding: .5rem .75rem;
+      -moz-appearance: textfield;
+    }
+    .guest-row input::-webkit-outer-spin-button,
+    .guest-row input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .stepper-btn {
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      border-radius: .75rem;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .stepper-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* Submit button */
+    .sq-btn {
+      display: block;
+      width: min(100%, 16rem);
+      margin: 2.25rem auto 0;
+      padding: 1rem 1.5rem;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .28em;
+      text-indent: .28em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(180deg, #4a7a52 0%, #2A5C35 55%, #234c2c 100%);
+      box-shadow:
+        0 10px 24px color-mix(in srgb, #2A5C35 35%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.22);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .sq-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px color-mix(in srgb, #2A5C35 42%, transparent);
+    }
+    .sq-btn:active {
+      transform: translateY(1px);
+      filter: brightness(.96);
+    }
+    .sq-btn.is-done {
+      background: linear-gradient(180deg, #5a8a62 0%, #355f3d 100%);
+    }
+
+    .closing {
+      margin-top: 2.5rem;
+      font-family: var(--font-script);
+      font-size: clamp(1.85rem, 7.5vw, 2.35rem);
+      font-weight: 400;
+      color: var(--kz-ink);
+      line-height: 1.25;
+      max-width: 18rem;
+      margin-inline: auto;
+    }
+    .footer-ornament {
+      width: min(70%, 12rem);
+      margin: 2rem auto 1rem;
+      opacity: .4;
+    }
+    .footer-ornament img { width: 100%; height: auto; display: block; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--kz-ink);
+      color: #fff;
+      padding: .85rem 1.25rem;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 500;
+      z-index: 50;
+      transition: transform .35s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (min-width: 480px) {
+      body { padding: 1.5rem 0; }
+      .phone { border-radius: 1.25rem; overflow-x: hidden; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <section class="cover" id="cover">
+      <img class="cover__img" src="cover.webp" alt="Беташар" />
+      <div class="cover__fade"></div>
+      <div class="cover__music-wrap">
+        <div class="cover__music-spin" aria-hidden="true">
+          <img src="assets/ornament-circle.svg" alt="" />
+        </div>
+        <button class="cover__music" id="musicBtn" type="button" aria-label="Музыка">
+          <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 6.8v10.4L18 12 8.5 6.8z"/></svg>
+          <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="7" y="6.5" width="3.2" height="11" rx=".5"/>
+            <rect x="13.8" y="6.5" width="3.2" height="11" rx=".5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg" />
+      </audio>
+    </section>
+
+    <section class="section">
+      <div class="border-ornament" aria-hidden="true">
+        <img src="assets/ornament-border.svg" alt="" />
+      </div>
+      <p class="greeting">Құрметті ағайын-туыс, құда-жекжат!</p>
+      <p class="intro">Сіз(дер)ді келініміздің беташар тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз</p>
+      <h1 class="hero-name">Ару</h1>
+      <p class="message">Шаңырағымызға енген келінімізге ақ батаңызды беріп, қуанышымызға ортақ болыңыздар!</p>
+      <div class="ornament" aria-hidden="true">
+        <img src="assets/ornament-wave.svg" alt="" />
+      </div>
+    </section>
+
+    <section class="calendar" id="date">
+      <div class="cal-month">қыркүйек</div>
+      <div class="cal-date">28.09.2026</div>
+      <div class="cal-grid" id="calGrid" aria-label="Күнтізбе"></div>
+
+      <div class="time-block">
+        <div class="time-label">басталуы</div>
+        <div class="time-value">18 : 00</div>
+      </div>
+
+      <div class="schedule">
+        <div class="schedule__item">
+          <span class="schedule__name">Беташар</span>
+          <span class="schedule__time">16:00</span>
+        </div>
+      </div>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div class="cd-unit"><p class="cd-num" data-u="d">0</p><p class="cd-label">күн</p></div>
+        <div class="cd-sep"></div>
+        <div class="cd-unit"><p class="cd-num" data-u="h">0</p><p class="cd-label">сағат</p></div>
+        <div class="cd-sep"></div>
+        <div class="cd-unit"><p class="cd-num" data-u="m">0</p><p class="cd-label">минут</p></div>
+        <div class="cd-sep"></div>
+        <div class="cd-unit"><p class="cd-num" data-u="s">0</p><p class="cd-label">секунд</p></div>
+      </div>
+    </section>
+
+    <section class="location">
+      <p class="loc-label">Той өтетін орын:</p>
+      <p class="loc-address">Шымкент қаласы,
+Жібек жолы көшесі,
+140-үй</p>
+      <a
+        class="map-btn"
+        href="https://2gis.kz/shymkent/firm/70000001098459694/69.652645%2C42.335328?m=69.652705%2C42.335101%2F17.97"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+        Карта арқылы ашу
+      </a>
+      <div class="map-frame">
+        <iframe
+          title="Карта"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://yandex.com/map-widget/v1/?ll=69.652645%2C42.335328&z=17&pt=69.652645,42.335328,pm2rdm&l=map"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="hosts">
+      <div class="hosts__bg" aria-hidden="true">
+        <img src="assets/ornament-floral.svg" alt="" />
+      </div>
+      <div class="hosts__inner">
+        <p class="hosts__label">Той иелері</p>
+        <div class="hosts__names">
+          <span class="hosts__name">Берік</span>
+          <div class="hosts__divider">
+            <span></span>
+            <img src="assets/heart.svg" alt="" />
+            <span></span>
+          </div>
+          <span class="hosts__name">Гульмира</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp" id="rsvp">
+      <h3>сіз келеcіз бе?</h3>
+      <form id="rsvpForm">
+        <div class="field">
+          <label for="name">есіміңіз <span class="req">*</span></label>
+          <input id="name" name="name" type="text" placeholder="Есіміңіз" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="phone">телефон <span class="req">*</span></label>
+          <input id="phone" name="phone" type="tel" placeholder="Телефон" required autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="guests">қанша адам келесіздер? <span class="req">*</span></label>
+          <div class="guest-row">
+            <button type="button" class="stepper-btn" id="guestMinus" aria-label="Азайту">−</button>
+            <input id="guests" name="guests" type="number" min="1" max="5" value="1" required />
+            <button type="button" class="stepper-btn" id="guestPlus" aria-label="Көбейту">+</button>
+          </div>
+        </div>
+
+        <button type="submit" class="sq-btn" id="submitBtn">
+          <span class="sq-btn__label" data-idle="Жіберу" data-done="Кетті">Жіберу</span>
+        </button>
+      </form>
+
+      <p class="closing">Тойымыздың қадірлі қонақтары болыңыз!</p>
+      <div class="footer-ornament" aria-hidden="true">
+        <img src="assets/ornament-circle.svg" alt="" />
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">Рахмет! Жауабыңыз қабылданды</div>
+
+  <script>
+    const EVENT = new Date("2026-09-28T18:00:00+05:00");
+
+    /* Calendar — September 2026, event Monday 28 */
+    (function buildCalendar() {
+      const grid = document.getElementById("calGrid");
+      const dows = ["дс", "сс", "ср", "бс", "жм", "сб", "жс"];
+      dows.forEach((d) => {
+        const el = document.createElement("div");
+        el.className = "cal-dow";
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      // Sep 2026 starts on Tuesday → Mon-based offset 1
+      const firstDow = new Date(2026, 8, 1).getDay(); // 0=Sun → Tue=2
+      const offset = (firstDow + 6) % 7;
+      const daysInMonth = 30;
+      const prevDays = 31; // August
+
+      for (let i = 0; i < offset; i++) {
+        const day = prevDays - offset + i + 1;
+        const el = document.createElement("div");
+        el.className = "cal-day cal-day--muted";
+        el.textContent = day;
+        grid.appendChild(el);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const el = document.createElement("div");
+        el.className = "cal-day" + (d === 28 ? " cal-day--event" : "");
+        el.textContent = d;
+        if (d === 28) el.setAttribute("aria-current", "date");
+        grid.appendChild(el);
+      }
+
+      const filled = offset + daysInMonth;
+      // Original shows 6 rows ending at Oct 11
+      const target = 42;
+      for (let d = 1; d <= target - filled; d++) {
+        const el = document.createElement("div");
+        el.className = "cal-day cal-day--muted";
+        el.textContent = d;
+        grid.appendChild(el);
+      }
+    })();
+
+    /* Countdown */
+    function tick() {
+      let diff = Math.max(0, EVENT.getTime() - Date.now());
+      const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+      const h = Math.floor(diff / 3600000); diff -= h * 3600000;
+      const m = Math.floor(diff / 60000); diff -= m * 60000;
+      const s = Math.floor(diff / 1000);
+      const map = { d, h, m, s };
+      document.querySelectorAll("[data-u]").forEach((el) => {
+        el.textContent = map[el.dataset.u];
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    /* Music */
+    const musicBtn = document.getElementById("musicBtn");
+    const audio = document.getElementById("bgMusic");
+
+    async function playMusic() {
+      try {
+        await audio.play();
+        musicBtn.classList.add("is-playing");
+      } catch (_) {}
+    }
+
+    musicBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      if (audio.paused) await playMusic();
+      else {
+        audio.pause();
+        musicBtn.classList.remove("is-playing");
+      }
+    });
+
+    const unlock = () => { playMusic(); window.removeEventListener("pointerdown", unlock); };
+    window.addEventListener("pointerdown", unlock, { once: true });
+    playMusic();
+
+    /* Guests stepper */
+    const guests = document.getElementById("guests");
+    const guestMinus = document.getElementById("guestMinus");
+    function syncGuestBtns() {
+      guestMinus.disabled = Number(guests.value) <= 1;
+    }
+    guestMinus.onclick = () => {
+      guests.value = Math.max(1, Number(guests.value) - 1);
+      syncGuestBtns();
+    };
+    document.getElementById("guestPlus").onclick = () => {
+      guests.value = Math.min(5, Number(guests.value) + 1);
+      syncGuestBtns();
+    };
+    guests.addEventListener("input", syncGuestBtns);
+    syncGuestBtns();
+
+    /* RSVP */
+    const form = document.getElementById("rsvpForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const toast = document.getElementById("toast");
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const label = submitBtn.querySelector(".sq-btn__label");
+      submitBtn.classList.add("is-done");
+      if (label) label.textContent = label.dataset.done || "Кетті";
+      showToast("Рахмет! Жауабыңыз қабылданды ✓");
+      setTimeout(() => {
+        form.reset();
+        guests.value = 1;
+        syncGuestBtns();
+        submitBtn.classList.remove("is-done");
+        if (label) label.textContent = label.dataset.idle || "Жіберу";
+      }, 2200);
+    });
+  </script>
+</body>
+</html>
